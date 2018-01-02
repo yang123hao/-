@@ -1,0 +1,23 @@
+开机运行Eth
+安装 screen 
+sudo apt install screen
+新建 miner_launcher.sh
+sudo nano miner_launcher.sh
+#!/bin/bash
+DEFAULT_DELAY=0
+if [ "x$1" = "x" -o "x$1" = "xnone" ]; then
+   DELAY=$DEFAULT_DELAY
+else
+   DELAY=$1
+fi
+sleep $DELAY
+cd /home/hopchi
+su root -c "screen -dmS ethm ./runeth"
+修改运行权限
+chmod 755 miner_launcher.sh
+设置查询miner名称
+sudo nano .bashrc
+alias miner='screen -x ethm'
+开机10运行
+nano /etc/rc.local
+/home/hopchi/miner_launcher.sh 10 &
